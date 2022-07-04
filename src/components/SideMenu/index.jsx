@@ -12,7 +12,7 @@ const SideMenu = () => {
         </Link>
         <Link to="/dashboard/table">
           <li>
-            Table
+            Tabela de Classificação
           </li>
         </Link>
       </ul>

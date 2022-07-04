@@ -1,9 +1,12 @@
 .sideMenu {
+  height: 100vh;
   width: 100%;
   max-width: 250px;
+  border-right: 1px solid var(--secondary-300);
   ul {
     display: flex;
     flex-direction: column;
+    margin-top: 0.8rem;
 
     a {
       text-decoration: none;
@@ -11,6 +14,15 @@
 
     li {
       padding: 0.8rem 1.6rem;
+      margin: 0.4rem 0.8rem;
+      background-color: var(--primary-200);
+      color: var(--primary-800);
+      font-weight: 600;
+      transition: all 250ms ease;
+
+      &:hover {
+        background-color: var(--primary-100);
+      }
     }
   }
 }

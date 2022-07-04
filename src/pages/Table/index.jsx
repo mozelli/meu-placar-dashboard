@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import axios
- from 'axios';
+import axios from 'axios';
+
+import loading from '../../images/loading-circular.gif';
 import styles from './table.module.scss';
 
 const Table = () => {
 
-  const [table, setTable] = useState([{}]);
+  const [table, setTable] = useState([]);
 
   function refreshTable() {
-    axios("http://localhost:4444/teams/scrap-table")
+    setTable([]);
+    axios.put("http://localhost:4444/teams/scrap-table")
     .then((responseRefresh) => {
       if(!responseRefresh.data.error) {
         getTable();
@@ -38,7 +40,7 @@ const Table = () => {
       <h3>Tabela Campeonato Brasileiro - Série B</h3>
       <div className={ styles.topMenu }>
         <div className="buttonGroup">
-          <button>Atualizar Tabela</button>
+          <button onClick={() => refreshTable()}>Atualizar Tabela</button>
           <button>Trocar Tabela</button>
         </div>
       </div>
@@ -50,6 +52,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
+        { table.length <= 0 && <tr className={styles.loading}><td colSpan={4}><img src={loading} alt="Carregando a tabela de classificação." /></td></tr>}
         {
           table.map((team, index) => {
             return(
