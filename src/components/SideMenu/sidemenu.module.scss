@@ -1,0 +1,16 @@
+.sideMenu {
+  width: 100%;
+  max-width: 250px;
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      text-decoration: none;
+    }
+
+    li {
+      padding: 0.8rem 1.6rem;
+    }
+  }
+}

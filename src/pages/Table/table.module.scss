@@ -1,0 +1,62 @@
+.table {
+  width: 100%;
+  h3 {
+    margin: 3rem 0;
+  }
+
+  .topMenu {
+    margin-bottom: 0.8rem;
+  }
+
+  table {
+    width: 60%;
+    thead {
+      tr {
+        height: 5rem;
+        background-color: var(--primary-200);
+
+        th {
+          font-size: var(--font-size-large);
+          color: var(--primary-900);
+        }
+      }
+      .clubeHead {
+        text-align: left;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          border-bottom: 1px solid var(--secondary-300);
+        }
+      }
+      .team {
+        .teamPosition {
+          font-weight: 600;
+          text-align: center;
+          width: 4rem;
+          font-size: var(--font-size-large);
+        }
+
+        .teamShield {
+          width: 4rem;
+          vertical-align: middle;
+          img {
+            width: 3rem;
+          }
+        }
+
+        .teamName {
+          width: 200px;
+          font-size: var(--font-size-large);
+          vertical-align: middle;
+        }
+
+        .teamPoints {
+          width: 4rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

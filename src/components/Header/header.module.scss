@@ -1,0 +1,12 @@
+.header {
+  padding: 0.8rem;
+  display: flex;
+  box-shadow: 2px 0px 4px var(--secondary-900);
+
+  .logo {
+    max-width: 250px;
+    img {
+      width: 100%;
+    }
+  }
+}
