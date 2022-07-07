@@ -226,6 +226,10 @@ kbd {
   margin-top: 8rem;
 }
 
+.mb-0 {
+  margin-bottom: 0;
+}
+
 .mb-1 {
   margin-bottom: 0.8rem;
 }
@@ -599,6 +603,11 @@ button {
   padding: 0.6rem 1.6rem;
   border: 0;
   border-radius: 0.2rem;
+}
+
+button.secondary {
+  background-color: var(--secondary-500);
+  color: var(--secondary-900);
 }
 
 button:hover {

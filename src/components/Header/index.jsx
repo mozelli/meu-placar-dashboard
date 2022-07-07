@@ -1,13 +1,15 @@
-import styles from './header.module.scss';
 import logo from '../../images/logo.png';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className={ styles.header }>
-      <div className={styles.logo}>
-        <img src={ logo } alt="Logo Meu Placar - Bolão Online" />
+    <nav className="navbar navbar-expand-lg shadow-sm mb-4">
+      <div className="container-fluid">
+        <Link to="/dashboard" className='navbar-brand'>
+          <img src={ logo } alt="Meu Placar - Bolão Online" width={250} />
+        </Link>
       </div>
-    </div>
+    </nav>
   );
 }
 
