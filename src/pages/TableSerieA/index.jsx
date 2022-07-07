@@ -6,7 +6,7 @@ import loading from '../../images/loading-circular.gif';
 
 const TableSerieA = () => {
   const [table, setTable] = useState([]);
-  // const [time, setTime] = useState(null);
+  
   let time = null;
   useEffect(() => {
     clearTimeout(time);

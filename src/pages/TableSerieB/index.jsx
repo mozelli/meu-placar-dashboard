@@ -7,17 +7,23 @@ import loading from '../../images/loading-circular.gif';
 const TableSerieB = () => {
   const [table, setTable] = useState([]);
   
+  let time = null;
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "http://localhost:4444/campeonato-brasileiro/table/B",
-    })
-    .then((response) => {
-      setTable(response.data.table);
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+    clearTimeout(time);
+
+    time = setTimeout(() => {
+      console.log("[TableSerieA: Try request]");
+      axios({
+        method: "get",
+        url: "http://localhost:4444/campeonato-brasileiro/table/B",
+      })
+      .then((response) => {
+        setTable(response.data.table);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, 1000) 
   }, []);
 
   return (
