@@ -9,7 +9,7 @@ const TableSerieA = () => {
   
   let time = null;
   useEffect(() => {
-    clearTimeout(time);
+    // clearTimeout(time);
 
     time = setTimeout(() => {
       console.log("[TableSerieA: Try request]");
@@ -24,6 +24,7 @@ const TableSerieA = () => {
         console.error(error);
       });
     }, 1000) 
+    return(() => clearTimeout(time));
   }, []);
 
   return (

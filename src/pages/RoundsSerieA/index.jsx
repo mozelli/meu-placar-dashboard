@@ -5,18 +5,23 @@ import DisplayTitle from "../../components/DisplayTitle"
 
 const RoundsSerieA = () => {
   const [matches, setMatches] = useState([]);
-
+  
+  let time = null;
   useEffect(() => {
-    axios({
-      url: "http://localhost:4444/campeonato-brasileiro/matches/A",
-      method: "get"
-    })
-    .then((response) => {
-      setMatches(response.data.matches);
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+    time = setTimeout(() => {
+      console.log("[RoundsSerieB: Try request]");
+      axios({
+        url: "http://localhost:4444/campeonato-brasileiro/matches/A",
+        method: "get"
+      })
+      .then((response) => {
+        setMatches(response.data.matches);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, 1000) ;
+    return(() => clearTimeout(time));
   }, []);
 
   return (

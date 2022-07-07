@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
 
 import axios from "axios";
 import DisplayTitle from "../../components/DisplayTitle";
 import Toast from 'react-bootstrap/Toast';
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 const Tools = () => {
 
   const [show, setShow] = useState(false);
-  const [error, setError] = useState(false);
   const [toastTitle, setToastTitle] = useState("")
   
-  function updateTableSerieA() {
+  function updateTable(serie) {
+    console.log(`[Try request scrap-table/${serie}]`);
     axios({
-      url: "http://localhost:4444/campeonato-brasileiro/scrap-table/A",
+      url: `http://localhost:4444/campeonato-brasileiro/scrap-table/${serie}`,
       method: "put"
     })
     .then((response) => {
@@ -22,7 +21,26 @@ const Tools = () => {
       setShow(true);
       setToastTitle("Tabela atualizada com sucesso!");
     })
-    .then((error) => {
+    .catch((error) => {
+      console.error(error);
+      setError(true);
+      setShow(true);
+      setToastTitle("Ops! Ocorreu um erro...");
+    });
+  }
+
+  function updateMatches(serie) {
+    console.log(`[Try request scrap-table/${serie}]`);
+    axios({
+      url: `http://localhost:4444/campeonato-brasileiro/scrap-matches/${serie}`,
+      method: "put"
+    })
+    .then((response) => {
+      console.log("Update success!");
+      setShow(true);
+      setToastTitle("Jogos atualizados com sucesso!");
+    })
+    .catch((error) => {
       console.error(error);
       setError(true);
       setShow(true);
@@ -38,7 +56,7 @@ const Tools = () => {
           <div className="card">
             <div className="card-body">
             <h5 className="card-title text-center">Atualizar tabela Série A</h5>  
-              <Link to="/" className="btn btn-warning mt-2">Atualizar</Link>
+              <button className="btn btn-warning mt-2" onClick={() => updateTable("A")}>Atualizar</button>
             </div>
           </div>
         </div>
@@ -46,7 +64,7 @@ const Tools = () => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title text-center">Atualizar tabela Série B</h5>  
-              <Link to="/" className="btn btn-warning mt-2">Atualizar</Link>
+              <button className="btn btn-warning mt-2" onClick={() => updateTable("B")}>Atualizar</button>
             </div>
           </div>
         </div>
@@ -56,16 +74,16 @@ const Tools = () => {
         <div className="col-5">
           <div className="card">
             <div className="card-body">
-            <h5 className="card-title text-center">Atualizar Partidas Série A</h5>  
-              <Link to="/" className="btn btn-warning mt-2">Atualizar</Link>
+            <h5 className="card-title text-center">Atualizar Jogos Série A</h5>  
+            <button className="btn btn-warning mt-2" onClick={() => updateMatches("A")}>Atualizar</button>
             </div>
           </div>
         </div>
         <div className="col-5">
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title text-center">Atualizar Partidas Série B</h5>  
-              <Link to="/" className="btn btn-warning mt-2">Atualizar</Link>
+              <h5 className="card-title text-center">Atualizar Jogos Série B</h5>  
+              <button className="btn btn-warning mt-2" onClick={() => updateMatches("B")}>Atualizar</button>
             </div>
           </div>
         </div>
