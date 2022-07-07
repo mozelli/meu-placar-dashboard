@@ -6,9 +6,12 @@ import loading from '../../images/loading-circular.gif';
 
 const TableSerieA = () => {
   const [table, setTable] = useState([]);
-  
+  // const [time, setTime] = useState(null);
+  let time = null;
   useEffect(() => {
-    if(!table.length) {
+    clearTimeout(time);
+
+    time = setTimeout(() => {
       console.log("[TableSerieA: Try request]");
       axios({
         method: "get",
@@ -20,8 +23,8 @@ const TableSerieA = () => {
       .catch((error) => {
         console.error(error);
       });
-    }  
-  }, [table]);
+    }, 1000) 
+  }, []);
 
   return (
     
