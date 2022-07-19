@@ -15,7 +15,7 @@ const RoundsSerieA = () => {
         method: "get"
       })
       .then((response) => {
-        setMatches(response.data.matches);
+        setMatches(response.data.result);
       })
       .catch((error) => {
         console.error(error);
@@ -41,12 +41,13 @@ const RoundsSerieA = () => {
             matches.map((match, index) => {
               return(
                 <tr key={index}>
-                  {(match.teams[2] && (
-                    <td className="text-center">{`${match.teams[0]} ${match.teams[1]} X ${match.teams[2]} ${match.teams[3]}`}</td>
+                  {(match.team[2] && (
+                    <td className="text-center">
+                      {match.team[0]} <strong>{match.team[1]}</strong> X <strong>{match.team[2]}</strong> {match.team[3]}</td>
                   ))}
-                  {(!match.teams[2] && <td>{`${match.teams[0]} X ${match.teams[1]}`}</td>)}
-                  <td>{match.date[0]}</td>
-                  <td>{match.date[1]}</td>
+                  {(!match.team[2] && <td>{`${match.team[0]} X ${match.team[1]}`}</td>)}
+                  <td>{match.date.day}/{match.date.month}</td>
+                  <td>{match.stadium}</td>
                   <td className="text-center"><div className="badge bg-secondary">0</div></td>
                 </tr>
               );

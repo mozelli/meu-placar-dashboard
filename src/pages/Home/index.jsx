@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import DisplayTitle from "../../components/DisplayTitle";
 
 const Home = () => {
+
   return (
     <div>
       <DisplayTitle title="Painel de Controle" />
@@ -10,7 +11,7 @@ const Home = () => {
         <div className="col-6">
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title text-center">
+              <h5 className="card-title text-center red-500">
                 Usuários
               </h5>
               <ul className="list-group">

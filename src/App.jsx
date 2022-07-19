@@ -2,12 +2,14 @@ import Router from './routes';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import UsersProvider from './contexts/users';
+
 function App() {
 
   return (
-    <div>
+    <UsersProvider>
       <Router />
-    </div>
+    </UsersProvider>
   )
 }
 

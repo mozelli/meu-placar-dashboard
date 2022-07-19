@@ -36,7 +36,7 @@ const Tools = () => {
       method: "put"
     })
     .then((response) => {
-      console.log("Update success!");
+      console.log(response.data.error);
       setShow(true);
       setToastTitle("Jogos atualizados com sucesso!");
     })
