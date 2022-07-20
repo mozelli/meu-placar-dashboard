@@ -25,7 +25,6 @@ const Login = () => {
       setLastName(response.data.user.lastname);
       setEmail(response.data.user.email);
       setToken(response.data.token);
-      console.log(response.data.token);
     })
     .catch((error) => {
       console.error(error);
