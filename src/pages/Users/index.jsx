@@ -1,8 +1,18 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import { UsersContext } from '../../contexts/UsersContext';
+
 import DisplayTitle from '../../components/DisplayTitle';
 
 const Users = () => {
+
+  const {users} = useContext(UsersContext);
+
+  console.log(users);
+
   return (
+    
     <section>
       <DisplayTitle title="Usuários e Permissões" />
       <div className="row">
@@ -44,6 +54,7 @@ const Users = () => {
         </div>
       </div>
     </section>
+    
   );
 }
 

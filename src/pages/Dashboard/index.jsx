@@ -3,11 +3,12 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
+import UsersProvider from '../../contexts/UsersContext';
 
 const Dashboard = () => {
 
   return (
-    <div>
+    <UsersProvider>
       <Header />
       <main className='container-fluid'>
         <div className="row">
@@ -23,7 +24,7 @@ const Dashboard = () => {
           </div>
         </div>
       </main> 
-      </div>   
+      </UsersProvider>
   );
 }
 
