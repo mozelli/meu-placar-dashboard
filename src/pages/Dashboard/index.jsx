@@ -1,18 +1,16 @@
 import { useContext } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 
-import { UserContext } from '../../contexts/users';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
+import { UserContext } from '../../contexts/users';
 
 const Dashboard = () => {
-
-  const {logged} = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   return (
     <div>
       <Header />
-      {!logged && <Navigate to="/" />}
       <main className='container-fluid'>
         <div className="row">
           <div className="col-3">

@@ -1,31 +1,26 @@
 import { useState, createContext } from "react";
+import axios from 'axios';
 
 export const UserContext = createContext({});
 
 function UsersProvider({children}) {
 
-  const [logged, setLogged] = useState(false);
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState();
   const [token, setToken] = useState("");
-  // const [authorizationLevel, setAuthorizationLevel] = useState(0);
+
+  function signOut() {
+    localStorage.removeItem("token");
+    setUser("");
+    setToken("");
+  }
   
   return (
     <UserContext.Provider value={{
-      id, 
-      setId, 
-      logged, 
-      setLogged, 
-      name, 
-      setName, 
-      lastName, 
-      setLastName, 
-      email,
-      setEmail,
+      user,
+      setUser,
       token,
-      setToken
+      setToken,
+      signOut
     }}>
       {children}
     </UserContext.Provider>

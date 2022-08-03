@@ -1,8 +1,7 @@
 import Router from './routes';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 import UsersProvider from './contexts/users';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 

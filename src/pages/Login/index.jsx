@@ -1,40 +1,37 @@
-import { useContext, useState } from "react";
-import {Navigate} from 'react-router-dom';
-
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+
 import { UserContext } from "../../contexts/users";
+import { useEffect } from "react";
 
 const Login = () => {
-
+  const navigate = useNavigate();
   const [emailForm, setEmailForm] = useState("");
   const [password, setPassword] = useState("");
-  const {logged, setLogged, setId, setName, setLastName, setEmail, token, setToken} = useContext(UserContext);
-
+  const { setUser,token, setToken } = useContext(UserContext);
+  
   function formHandle(e) {
     e.preventDefault();
-    axios("http://localhost:4444/users/authenticate", {
+    axios("http://localhost:4000/users/sign-in", {
       method: "post",
       data: {
         email: emailForm, password
       }
     })
     .then((response) => {
-      setLogged(true);
-      setId(response.data.user._id);
-      setName(response.data.user.name);
-      setLastName(response.data.user.lastname);
-      setEmail(response.data.user.email);
+      setUser(response.data.user);
       setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", response.data.user);
     })
     .catch((error) => {
-      console.error(error);
-      setLogged(false);
+      console.error(error.message);
     })
   }
 
   return (
       <section className="container mt-5">
-        {logged && <Navigate to="/dashboard" />}
         <div className="row justify-content-md-center">
           <div className="col-md-7">
             <div className="card">
