@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-
+// Protected Routes
+import Protected from './Protected';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import CampeonatoBrasileiro from './pages/CampeonatoBrasileiro';
@@ -12,7 +13,6 @@ import Users from './pages/Users';
 import { AuthProvider } from './contexts/AuthContext';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ProtectedRoutes from '../ProtectedRoutes';
 
 const App = () => {
 
@@ -20,12 +20,12 @@ const App = () => {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/' element=
+          <Route path='/' element={<SignIn />} />
+          <Route path='/dashboard' element=
             {
-              <ProtectedRoutes>
+              <Protected>
                 <Dashboard />
-              </ProtectedRoutes>
+              </Protected>
             }
           >
             <Route index element={<Home />} />

@@ -1,40 +1,32 @@
-import { useContext, useState } from "react";
-import {Navigate} from 'react-router-dom';
-
+import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+
 import { UserContext } from "../../contexts/users";
 
 const Login = () => {
-
-  const [emailForm, setEmailForm] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {logged, setLogged, setId, setName, setLastName, setEmail, token, setToken} = useContext(UserContext);
-
-  function formHandle(e) {
+  const { token, user, signIn } = useContext(UserContext);
+  const navigate = useNavigate();
+  
+  async function formHandle(e) {
     e.preventDefault();
-    axios("http://localhost:4444/users/authenticate", {
-      method: "post",
-      data: {
-        email: emailForm, password
-      }
-    })
-    .then((response) => {
-      setLogged(true);
-      setId(response.data.user._id);
-      setName(response.data.user.name);
-      setLastName(response.data.user.lastname);
-      setEmail(response.data.user.email);
-      setToken(response.data.token);
-    })
-    .catch((error) => {
-      console.error(error);
-      setLogged(false);
-    })
+    
+    if(await signIn(email, password)) {
+      navigate("/dashboard");
+    } else {
+      return
+    }
   }
+
+  useEffect(() => {
+    if(token !== "" && user !== "")
+      navigate("/dashboard", {replace: true});
+  }, []);
 
   return (
       <section className="container mt-5">
-        {logged && <Navigate to="/dashboard" />}
         <div className="row justify-content-md-center">
           <div className="col-md-7">
             <div className="card">
@@ -45,7 +37,7 @@ const Login = () => {
                 <form onSubmit={formHandle}>
                   <div className="mb-3">
                     <div className="form-label">E-mail</div>
-                    <input type="text" value={emailForm} className="form-control" onChange={(event) => setEmailForm(event.target.value)} />
+                    <input type="text" value={email} className="form-control" onChange={(event) => setEmail(event.target.value)} />
                   </div>
                   <div className="mb-3">
                     <div className="form-label">Senha</div>
