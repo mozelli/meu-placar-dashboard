@@ -1,27 +1,13 @@
-import axios from "axios";
+import { useEffect, useContext } from "react";
 
-import { useEffect, useState } from "react";
+import { MatchesContext } from "../../contexts/MatchesContext";
 import DisplayTitle from "../../components/DisplayTitle"
 
 const RoundsSerieA = () => {
-  const [matches, setMatches] = useState([]);
+  const {matchesSerieA, loadMatches, loading} = useContext(MatchesContext);
   
-  let time = null;
   useEffect(() => {
-    time = setTimeout(() => {
-      console.log("[RoundsSerieB: Try request]");
-      axios({
-        url: "http://localhost:4444/campeonato-brasileiro/matches/A",
-        method: "get"
-      })
-      .then((response) => {
-        setMatches(response.data.result);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }, 1000) ;
-    return(() => clearTimeout(time));
+    loadMatches("A");  
   }, []);
 
   return (
@@ -38,7 +24,7 @@ const RoundsSerieA = () => {
         </thead>
         <tbody>
           {
-            matches.map((match, index) => {
+            matchesSerieA.map((match, index) => {
               return(
                 <tr key={index}>
                   {(match.team[2] && (

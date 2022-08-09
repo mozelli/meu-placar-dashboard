@@ -1,7 +1,8 @@
 import UsersProvider from './contexts/UsersContext';
-import TablesProvider from './contexts/TablesContext';
-import Router from './Router';
 
+import Router from './Router';
+import TablesProvider from './contexts/TablesContext';
+import MatchesProvider from './contexts/MatchesContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -9,7 +10,9 @@ const App = () => {
   return (
     <UsersProvider>
       <TablesProvider>
-        <Router />
+        <MatchesProvider>
+          <Router />
+        </MatchesProvider>
       </TablesProvider>
     </UsersProvider>
   )

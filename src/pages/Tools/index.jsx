@@ -1,56 +1,59 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import Alert from 'react-bootstrap/Alert';
 
 import axios from "axios";
 import DisplayTitle from "../../components/DisplayTitle";
-import Toast from 'react-bootstrap/Toast';
-import { Row, Col } from "react-bootstrap";
+import { MatchesContext } from "../../contexts/MatchesContext";
+import { TablesContext } from "../../contexts/TablesContext";
 
 const Tools = () => {
 
-  const [show, setShow] = useState(false);
-  const [toastTitle, setToastTitle] = useState("")
+  const { scrapTables, alertMessageTables } = useContext(TablesContext);
+  const {scrapMatches, loading, alertMessageMatches} = useContext(MatchesContext);
+  const [status, setStatus] = useState("");
+  const [message, setMessage] = useState("");
   
-  function updateTable(serie) {
-    console.log(`[Try request scrap-table/${serie}]`);
-    axios({
-      url: `http://localhost:4444/campeonato-brasileiro/scrap-table/${serie}`,
-      method: "put"
-    })
-    .then((response) => {
-      console.log("Update success!");
-      setShow(true);
-      setToastTitle("Tabela atualizada com sucesso!");
-    })
-    .catch((error) => {
-      console.error(error);
-      setError(true);
-      setShow(true);
-      setToastTitle("Ops! Ocorreu um erro...");
-    });
+  async function updateTable(serie) {
+    setMessage("");
+    setStatus("");
+    
+    await scrapTables(serie);
+    
+    if(alertMessageMatches.message !== "") {
+      setMessage(alertMessageMatches.message);
+      setStatus(alertMessageTables.status);
+    }
+    if(alertMessageTables.message !== "") {
+      setMessage(alertMessageTables.message);
+      setStatus(alertMessageTables.status);
+    }
   }
 
-  function updateMatches(serie) {
-    console.log(`[Try request scrap-table/${serie}]`);
-    axios({
-      url: `http://localhost:4444/campeonato-brasileiro/scrap-matches/${serie}`,
-      method: "put"
-    })
-    .then((response) => {
-      console.log(response.data.error);
-      setShow(true);
-      setToastTitle("Jogos atualizados com sucesso!");
-    })
-    .catch((error) => {
-      console.error(error);
-      setError(true);
-      setShow(true);
-      setToastTitle("Ops! Ocorreu um erro...");
-    });
+  async function updateMatches(serie) {
+    setMessage("");
+    setStatus("");
+    
+    await scrapMatches(serie);
+
+    if(alertMessageMatches.message !== "") {
+      setMessage(alertMessageMatches.message);
+      setStatus(alertMessageTables.status);
+    }
+    if(alertMessageTables.message !== "") {
+      setMessage(alertMessageTables.message);
+      setStatus(alertMessageTables.status);
+    }
   }
 
   return (
-    <>
+    <section>
       <DisplayTitle title="Ferramentas" />
+      <div className="row">
+        <div className="col-12">
+          {status === "error" && <Alert variant="danger">{message}</Alert>}
+          {status === "success" && <Alert variant="success">{message}</Alert>}
+        </div>
+      </div>
       <div className="row">
         <div className="col-5">
           <div className="card">
@@ -88,24 +91,7 @@ const Tools = () => {
           </div>
         </div>
       </div>
-
-      <Row>
-        <Col xs={6}>
-          <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-            <Toast.Header>
-              <img
-                src="holder.js/20x20?text=%20"
-                className="rounded me-2"
-                alt=""
-              />
-              <strong className="me-auto">{toastTitle}</strong>
-              {/* <small>11 mins ago</small> */}
-            </Toast.Header>
-            <Toast.Body></Toast.Body>
-          </Toast>
-        </Col>
-      </Row>
-    </>
+    </section>
   );
 }
 
