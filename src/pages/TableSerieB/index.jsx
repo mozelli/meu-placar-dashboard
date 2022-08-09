@@ -1,30 +1,15 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext } from 'react';
+import { useEffect } from 'react';
 
 import DisplayTitle from '../../components/DisplayTitle';
-import loading from '../../images/loading-circular.gif';
+import { TablesContext } from '../../contexts/TablesContext';
+import loadingIcon from '../../images/loading-circular.gif';
 
 const TableSerieB = () => {
-  const [table, setTable] = useState([]);
-  
-  let time = null;
-  useEffect(() => {
+  const {tableSerieB, loadTable, loading} = useContext(TablesContext);
 
-    time = setTimeout(() => {
-      console.log("[TableSerieA: Try request]");
-      axios({
-        method: "get",
-        url: "http://localhost:4444/campeonato-brasileiro/table/B",
-      })
-      .then((response) => {
-        setTable(response.data.table);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }, 1000);
-    
-    return(() => clearTimeout(time));
+  useEffect(() => {
+    loadTable();
   }, []);
 
   return (
@@ -33,9 +18,9 @@ const TableSerieB = () => {
       <DisplayTitle title="Tabela - Série B" />
       <table className='table table-striped'>
         <tbody key="1">
-        {table.length === 0 && <tr><td className='text-center'><img src={ loading } alt="Carregando" width={35} /></td></tr>}
+        {loading && <tr><td className='text-center'><img src={ loadingIcon } alt="Carregando" width={35} /></td></tr>}
           {
-            table.map((team, index) => {
+            tableSerieB.map((team, index) => {
               return (
                 <tr key={index}>
                   <td className='text-center'><strong>{team.position}</strong></td>

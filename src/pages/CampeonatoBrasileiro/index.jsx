@@ -3,7 +3,7 @@ import DisplayTitle from "../../components/DisplayTitle";
 
 const CampeonatoBrasileiro = () => {
   return (
-    <div>
+    <section>
       <DisplayTitle title="Campeonato Brasileiro" />
       <div className="row">
         <div className="col-6">
@@ -20,8 +20,8 @@ const CampeonatoBrasileiro = () => {
                   <strong>Apostas rolando:</strong> <div><span className="badge bg-success">0</span></div>
                 </Link>
               </div>
-              <Link to="/dashboard/tabela-serie-a" className="btn btn-secondary card-link mt-4">Tabela</Link>
-              <Link to="/dashboard/jogos-da-rodada-serie-a" className="btn btn-secondary card-link mt-4">Jogos da Rodada</Link>
+              <Link to="/dashboard/campeonato-brasileiro/tabela-serie-a" className="btn btn-secondary card-link mt-4">Tabela</Link>
+              <Link to="/dashboard/campeonato-brasileiro/jogos-da-rodada-serie-a" className="btn btn-secondary card-link mt-4">Jogos da Rodada</Link>
             </div>
           </div>
         </div>
@@ -40,13 +40,13 @@ const CampeonatoBrasileiro = () => {
                   <strong>Apostas rolando:</strong> <div><span className="badge bg-success">0</span></div>
                 </Link>
               </div>
-              <Link to="/dashboard/tabela-serie-b" className="btn btn-secondary card-link mt-4">Tabela</Link>
-              <Link to="/dashboard/jogos-da-rodada-serie-b" className="btn btn-secondary card-link mt-4">Jogos da Rodada</Link>
+              <Link to="/dashboard/campeonato-brasileiro/tabela-serie-b" className="btn btn-secondary card-link mt-4">Tabela</Link>
+              <Link to="/dashboard/campeonato-brasileiro/jogos-da-rodada-serie-b" className="btn btn-secondary card-link mt-4">Jogos da Rodada</Link>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
