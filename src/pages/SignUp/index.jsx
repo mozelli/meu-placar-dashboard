@@ -2,35 +2,35 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 
-import { useAuth } from "../../contexts/AuthContext";
+// import { useAuth } from "../../contexts/AuthContext";
 
 const SignUp = () => {
 
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  // const { signup } = useAuth();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if(passwordRef.current.value !== passwordConfirmRef.current.value ) {
-      return setError("As senhas informadas devem ser iguais.");
-    }
+    // if(passwordRef.current.value !== passwordConfirmRef.current.value ) {
+    //   return setError("As senhas informadas devem ser iguais.");
+    // }
 
-    try {
-      setError("");
-      setSuccess("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      setSuccess("Novo usuário cadastrado com sucesso!");
-    } catch(error){
-      console.error(error);
-      setError("Falha ao tentar cadastar um novo usuário.");
-    }
-    setLoading(false);
+    // try {
+    //   setError("");
+    //   setSuccess("");
+    //   setLoading(true);
+    //   await signup(emailRef.current.value, passwordRef.current.value);
+    //   setSuccess("Novo usuário cadastrado com sucesso!");
+    // } catch(error){
+    //   console.error(error);
+    //   setError("Falha ao tentar cadastar um novo usuário.");
+    // }
+    // setLoading(false);
   }
 
   return (

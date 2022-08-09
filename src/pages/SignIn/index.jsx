@@ -1,32 +1,20 @@
-import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
-
-import { useAuth } from "../../contexts/AuthContext";
+import { UsersContext } from "../../contexts/UsersContext";
 
 const SignIn = () => {
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const { signin } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { signIn, signed, loading } = useContext(UsersContext);
+  
   async function handleSubmit(e) {
     e.preventDefault();
-
-    try {
-      setError("");
-      setLoading(true);
-      await signin(emailRef.current.value, passwordRef.current.value);
-      navigate("/", {replace: true});
-    } catch(error){
-      console.error(error);
-      setError("Falha no login.");
-    }
-    setLoading(false);
+    await signIn(email, password);
   }
+
+  if(signed) return <Navigate to="dashboard" />
 
   return (
     <div className="container d-flex align-items-center justify-content-center" style={{minHeight: "100vh"}} >
@@ -36,15 +24,15 @@ const SignIn = () => {
             <div className="card-title text-center">
               <h5>Login</h5>
             </div>
-            {error && <Alert variant="danger">{error}</Alert>}
+            {/* {alertMessage.status === "error" && <Alert variant="danger">{alertMessage.message}</Alert>} */}
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <div className="form-label">E-mail</div>
-                <input type="email" className="form-control" ref={emailRef} required />
+                <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="mb-3">
                 <div className="form-label">Senha</div>
-                <input type="password" className="form-control"  ref={passwordRef} />
+                <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <div className="d-grid gap-2 mb-3">
                 <button type="submit" className="btn btn-primary" disabled={loading}>Entrar</button>
