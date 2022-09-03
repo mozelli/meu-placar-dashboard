@@ -8,8 +8,9 @@ export const UsersContext = createContext({});
 function UsersProvider({children}) {
 
   const [user, setUser] = useState();
-  const [alertMessage, setAlertMessage] = useState({status: null, message: ""});
-  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [alertMessageUsers, setAlertMessageUsers] = useState({status: null, message: ""});
+  const [loadingUsers, setLoadingUsers] = useState(false);
 
   useEffect(() => {
     const loadStorageData = () => {
@@ -35,7 +36,7 @@ function UsersProvider({children}) {
       api.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
       setLoading(false);
     } catch(error) {
-      setAlertMessage({status: "error", message: "Usuário ou senha incorretos."});
+      setAlertMessageUsers({status: "error", message: "Usuário ou senha incorretos."});
       console.log(error.message);
       setLoading(false);
     }
@@ -46,15 +47,49 @@ function UsersProvider({children}) {
     setUser(null);
     return <Navigate to="/" />
   }
+
+  async function loadUsers() {
+    setAlertMessageUsers({status: null, message: ""});
+    setLoadingUsers(true);
+
+    try {
+      const response = await api.get("/users");
+      setUsers(response.data);
+      setAlertMessageUsers({status: "success", message: "Ok!"});
+      setLoadingUsers(false);
+    }catch(error) {
+      setAlertMessageUsers({status: "error", message: "Falha ao tentar carregar os usuários."});
+      console.log(error.message);
+      setLoadingUsers(false);
+    }
+  } 
+
+  async function addNewUser(data) {
+    setAlertMessageUsers({status: null, message: ""});
+    setLoadingUsers(true);
+
+    try {
+      await api.post("/users/add-new-user", {data});
+      setAlertMessageUsers({status: "success", message: "Novo usuário cadastrado com sucess!"});
+      setLoadingUsers(false);
+    }catch(error) {
+      setAlertMessageUsers({status: "error", message: "Falha ao tentar criar um novo usuário."});
+      console.log(error);
+      setLoadingUsers(false);
+    }
+  }
   
   return (
     <UsersContext.Provider value={{
       user,
+      users,
       signIn,
       signOut,
+      loadUsers,
+      addNewUser,
       signed: !!user,
-      alertMessage,
-      loading
+      alertMessageUsers,
+      loadingUsers
     }}>
       {children}
     </UsersContext.Provider>

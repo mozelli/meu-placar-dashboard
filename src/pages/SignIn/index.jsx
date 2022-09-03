@@ -7,7 +7,7 @@ const SignIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn, signed, loading } = useContext(UsersContext);
+  const { signIn, signed, loadingUsers } = useContext(UsersContext);
   
   async function handleSubmit(e) {
     e.preventDefault();
@@ -35,7 +35,7 @@ const SignIn = () => {
                 <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <div className="d-grid gap-2 mb-3">
-                <button type="submit" className="btn btn-primary" disabled={loading}>Entrar</button>
+                <button type="submit" className="btn btn-primary" disabled={loadingUsers}>Entrar</button>
               </div>
             </form>
           </div>

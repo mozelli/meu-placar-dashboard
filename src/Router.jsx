@@ -10,6 +10,7 @@ import RoundsSerieA from './pages/RoundsSerieA';
 import TableSerieB from './pages/TableSerieB';
 import RoundsSerieB from './pages/RoundsSerieB';
 import Users from './pages/Users';
+import SignUp from './pages/SignUp';
 import Tools from './pages/Tools';
 
 export default function Router() {
@@ -26,6 +27,7 @@ export default function Router() {
             <Route path="campeonato-brasileiro/jogos-da-rodada-serie-b" element={<RoundsSerieB />} />
             <Route path='tools' element={<Tools />} />
             <Route path="users" element={<Users />} />
+            <Route path='add-new-user' element={<SignUp />} />
           </Route>
       </Routes>
     </BrowserRouter>
